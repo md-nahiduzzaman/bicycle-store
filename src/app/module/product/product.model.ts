@@ -1,10 +1,13 @@
 import { model, Schema } from 'mongoose';
+import { IProduct } from './product.interface';
 
-const productSchema = new Schema(
+const productSchema = new Schema<IProduct>(
   {
     name: {
       type: String,
       required: [true, 'Please provide your name'],
+      minlength: 5,
+      maxlength: 50,
     },
     brand: {
       type: String,
