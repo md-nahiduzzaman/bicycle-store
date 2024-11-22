@@ -8,7 +8,7 @@ import productRouter from './app/module/product/product.router';
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/product', productRouter);
+app.use('/api/products', productRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send({
