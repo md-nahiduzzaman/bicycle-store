@@ -65,7 +65,7 @@ const getProductById = async (req: Request, res: Response) => {
 
     res.json({
       success: false,
-      message: 'Something went wrong',
+      message: 'Product not found',
       error: err.message,
       stack: err.stack,
     });
