@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { productService } from './product.service';
 
-//create product
+//create product controller
 const createProduct = async (req: Request, res: Response) => {
   try {
     const payload = req.body;
@@ -9,7 +9,7 @@ const createProduct = async (req: Request, res: Response) => {
     const result = await productService.createProduct(payload);
 
     res.json({
-      status: true,
+      success: true,
       message: 'Bicycle created successfully',
       data: result,
     });
@@ -18,17 +18,19 @@ const createProduct = async (req: Request, res: Response) => {
 
     res.json({
       success: false,
-      message: 'Something went wrong',
+      message: 'Validation failed',
       error: err,
-      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+      stack: err.stack,
     });
   }
 };
 
-//get product
+//get product controller
 const getProduct = async (req: Request, res: Response) => {
   try {
-    const result = await productService.getProduct();
+    const { searchTerm } = req.query;
+
+    const result = await productService.getProduct(searchTerm as string);
 
     res.json({
       status: true,
@@ -41,19 +43,25 @@ const getProduct = async (req: Request, res: Response) => {
     res.json({
       success: false,
       message: 'Something went wrong',
-      error: err,
-      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+      error: err.message,
+      stack: err.stack,
     });
   }
 };
 
-//get specific product
+//get specific product controller
 const getProductById = async (req: Request, res: Response) => {
   try {
-    // console.log(req.params);
     const productId = req.params.productId;
     const result = await productService.getProductById(productId);
 
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found',
+      });
+    }
+
     res.json({
       status: true,
       message: 'Bicycles retrieved successfully',
@@ -65,14 +73,13 @@ const getProductById = async (req: Request, res: Response) => {
     res.json({
       success: false,
       message: 'Something went wrong',
-      error: err,
-      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+      error: err.message,
+      stack: err.stack,
     });
   }
 };
 
-//update specific product
-
+//update specific product controller
 const updateProduct = async (req: Request, res: Response) => {
   try {
     const productId = req.params.productId;
@@ -96,8 +103,7 @@ const updateProduct = async (req: Request, res: Response) => {
   }
 };
 
-//delete specific product
-
+//delete specific product controller
 const deleteProduct = async (req: Request, res: Response) => {
   try {
     const productId = req.params.productId;

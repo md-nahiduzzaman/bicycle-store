@@ -17,9 +17,8 @@ const createOrder = async (req: Request, res: Response) => {
 
     res.json({
       success: false,
-      message: 'Something went wrong',
-      error: err,
-      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+      message: `404 - ${err.message || 'Validation failed'}`,
+      stack: err.stack,
     });
   }
 };
@@ -41,7 +40,7 @@ const getRevenue = async (req: Request, res: Response) => {
       success: false,
       message: 'Something went wrong',
       error: err,
-      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+      stack: err.stack,
     });
   }
 };

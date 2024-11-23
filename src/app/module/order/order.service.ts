@@ -2,7 +2,7 @@ import Product from '../product/product.model';
 import { IOrder } from './order.interface';
 import Order from './order.model';
 
-// place order
+// place order service
 const placeOrder = async (orderData: IOrder) => {
   const { product, quantity } = orderData;
 
@@ -22,7 +22,7 @@ const placeOrder = async (orderData: IOrder) => {
   return await order.save();
 };
 
-// calculate revenue
+// calculate revenue service
 const calculateRevenue = async () => {
   const revenue = await Order.aggregate([
     {

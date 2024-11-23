@@ -5,9 +5,9 @@ const productSchema = new Schema<IProduct>(
   {
     name: {
       type: String,
-      required: [true, 'Please provide your name'],
+      required: [true, 'Please provide product name'],
       minlength: 5,
-      maxlength: 50,
+      maxlength: 30,
     },
     brand: {
       type: String,
@@ -22,7 +22,8 @@ const productSchema = new Schema<IProduct>(
       type: String,
       enum: {
         values: ['Mountain', 'Road', 'Hybrid', 'BMX', 'Electric'],
-        message: '{VALUE} is not valid, please provide a valid type',
+        message:
+          '{VALUE} is not valid, please provide a valid type like Mountain, Road, Hybrid, BMX, Electric',
       },
       required: true,
     },
@@ -33,7 +34,7 @@ const productSchema = new Schema<IProduct>(
     quantity: {
       type: Number,
       required: true,
-      min: [1, '{VALUE} is not valid, quantity can not be less than zero'],
+      min: [0, '{VALUE} is not valid, quantity can not be less than zero'],
     },
     inStock: {
       type: Boolean,
@@ -42,6 +43,7 @@ const productSchema = new Schema<IProduct>(
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 

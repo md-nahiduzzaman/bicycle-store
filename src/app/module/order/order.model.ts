@@ -1,6 +1,7 @@
 import { model, Schema } from 'mongoose';
+import { IOrder } from './order.interface';
 
-const orderSchema = new Schema(
+const orderSchema = new Schema<IOrder>(
   {
     email: {
       type: String,
@@ -20,7 +21,7 @@ const orderSchema = new Schema(
     quantity: {
       type: Number,
       required: true,
-      min: [1, 'Quantity must be at least 1'],
+      min: [0, 'Quantity can not be negative'],
     },
     totalPrice: {
       type: Number,
@@ -30,6 +31,7 @@ const orderSchema = new Schema(
   },
   {
     timestamps: true,
+    versionKey: false,
   },
 );
 

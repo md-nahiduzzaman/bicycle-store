@@ -9,8 +9,16 @@ const createProduct = async (payload: IProduct): Promise<IProduct> => {
 };
 
 // get product
-const getProduct = async () => {
-  const result = await Product.find();
+const getProduct = async (searchTerm: string | undefined) => {
+  let filter = {};
+  if (searchTerm) {
+    const regex = new RegExp(searchTerm, 'i');
+    filter = {
+      $or: [{ name: regex }, { brand: regex }, { type: regex }],
+    };
+  }
+
+  const result = await Product.find(filter);
   return result;
 };
 
