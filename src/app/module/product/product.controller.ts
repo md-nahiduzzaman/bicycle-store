@@ -14,10 +14,13 @@ const createProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
+    const err = error as Error;
+
     res.json({
-      status: false,
+      success: false,
       message: 'Something went wrong',
-      error,
+      error: err,
+      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
     });
   }
 };
@@ -33,10 +36,13 @@ const getProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
+    const err = error as Error;
+
     res.json({
-      status: false,
+      success: false,
       message: 'Something went wrong',
-      error,
+      error: err,
+      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
     });
   }
 };
@@ -54,10 +60,13 @@ const getProductById = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
+    const err = error as Error;
+
     res.json({
-      status: false,
+      success: false,
       message: 'Something went wrong',
-      error,
+      error: err,
+      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
     });
   }
 };
@@ -76,10 +85,13 @@ const updateProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
+    const err = error as Error;
+
     res.json({
-      status: false,
+      success: false,
       message: 'Something went wrong',
-      error,
+      error: err,
+      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
     });
   }
 };
@@ -97,10 +109,13 @@ const deleteProduct = async (req: Request, res: Response) => {
       result: {},
     });
   } catch (error) {
+    const err = error as Error;
+
     res.json({
-      status: false,
+      success: false,
       message: 'Something went wrong',
-      error,
+      error: err,
+      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
     });
   }
 };
