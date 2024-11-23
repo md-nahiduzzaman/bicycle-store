@@ -91,7 +91,7 @@ const updateProduct = async (req: Request, res: Response) => {
       success: false,
       message: 'Something went wrong',
       error: err,
-      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+      stack: err.stack,
     });
   }
 };
@@ -114,7 +114,7 @@ const deleteProduct = async (req: Request, res: Response) => {
       success: false,
       message: 'Something went wrong',
       error: err,
-      stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
+      stack: err.stack,
     });
   }
 };
