@@ -55,13 +55,6 @@ const getProductById = async (req: Request, res: Response) => {
     const productId = req.params.productId;
     const result = await productService.getProductById(productId);
 
-    if (!result) {
-      return res.status(404).json({
-        success: false,
-        message: 'Product not found',
-      });
-    }
-
     res.json({
       status: true,
       message: 'Bicycles retrieved successfully',

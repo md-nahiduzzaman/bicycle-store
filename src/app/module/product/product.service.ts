@@ -22,7 +22,7 @@ const getProduct = async (searchTerm: string | undefined) => {
   return result;
 };
 
-// get specific product
+// get specific product by id
 const getProductById = async (id: string) => {
   const result = await Product.findById(id);
   return result;
