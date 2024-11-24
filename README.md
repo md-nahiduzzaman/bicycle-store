@@ -61,7 +61,6 @@ Follow these steps to set up the project locally:
    Create a `.env` file in the root directory and provide the following variables:
 
    ```
-   NODE_ENV=development
    PORT=5000
    DATABASE_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/bicycle-store
    NODE_ENV=development
@@ -76,7 +75,6 @@ Follow these steps to set up the project locally:
    - For production:
      ```
      npm run build
-     npm start
      ```
 
 5. **API Documentation**
@@ -96,6 +94,7 @@ Follow these steps to set up the project locally:
 
 - **GET** `/api/products`: Retrieve all products or search using a query.
 - **POST** `/api/products`: Create a new bicycle.
+- **GET** `/api/products/:id`: Get a specific bicycle.
 - **PUT** `/api/products/:id`: Update bicycle details.
 - **DELETE** `/api/products/:id`: Delete a bicycle.
 
@@ -108,6 +107,6 @@ Follow these steps to set up the project locally:
 
 For any questions or suggestions, contact:
 
-**Your Name**  
+**Nahiduzzaman**  
 **Email**: join.nahiduzzaman@gmail.com  
 **GitHub**: https://github.com/md-nahiduzzaman
