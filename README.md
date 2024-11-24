@@ -1,10 +1,6 @@
 # Bicycle Store API
 
---
-
 ## A robust and scalable RESTful API for managing a bicycle store, including features for managing products, orders, and inventory. Built using TypeScript, Express, and MongoDB.
-
---
 
 ## Features
 
@@ -29,16 +25,12 @@
 - Custom error responses with detailed validation and stack trace (development mode only).
 - Handles insufficient stock scenarios gracefully.
 
----
-
 ## Tech Stack
 
 - **Backend Framework**: Express.js (Node.js)
 - **Language**: TypeScript
 - **Database**: MongoDB (with Mongoose for schema validation)
 - **Deployment**: Vercel
-
----
 
 ## Prerequisites
 
@@ -48,8 +40,6 @@ Before setting up the project locally, ensure you have the following installed:
 - **npm** or **yarn**
 - **MongoDB** (local or cloud instance, e.g., MongoDB Atlas)
 
----
-
 ## Installation and Setup
 
 Follow these steps to set up the project locally:
@@ -57,8 +47,8 @@ Follow these steps to set up the project locally:
 1. **Clone the Repository**
 
    ```
-   git clone https://github.com/yourusername/bicycle-store-api.git
-   cd bicycle-store-api
+   git clone https://github.com/md-nahiduzzaman/bicycle-store.git
+   cd bicycle-store
    ```
 
 2. **Install Dependencies**
@@ -71,6 +61,7 @@ Follow these steps to set up the project locally:
    Create a `.env` file in the root directory and provide the following variables:
 
    ```
+   NODE_ENV=development
    PORT=5000
    DATABASE_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/bicycle-store
    NODE_ENV=development
@@ -99,8 +90,6 @@ Follow these steps to set up the project locally:
      GET http://localhost:5000/api/products?searchTerm=Road
      ```
 
----
-
 ## API Endpoints
 
 ### Product Endpoints
@@ -114,28 +103,6 @@ Follow these steps to set up the project locally:
 
 - **POST** `/api/orders`: Place an order.
 - **GET** `/api/orders/revenue`: Calculate total revenue.
-
----
-
-## Folder Structure
-
-```
-bicycle-store-api/
-├── src/
-│   ├── app/
-│   │   ├── config.ts          # Configuration (e.g., environment variables)
-│   │   ├── app.ts             # Express app setup
-│   ├── controllers/           # API Controllers
-│   ├── models/                # Mongoose Models
-│   ├── routes/                # API Routes
-│   ├── services/              # Business Logic
-│   ├── utils/                 # Utility Functions
-├── .env                       # Environment Variables
-├── package.json
-├── tsconfig.json              # TypeScript Config
-```
-
----
 
 ## Contact
 
