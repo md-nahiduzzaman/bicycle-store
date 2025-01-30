@@ -1,17 +1,41 @@
-// const express = require("express");
 import express, { Application, Request, Response } from 'express';
-const app: Application = express();
 import cors from 'cors';
 import productRouter from './app/module/product/product.router';
 import orderRouter from './app/module/order/order.router';
+import AuthRouter from './app/module/auth/auth.router';
+import userRouter from './app/module/user/user.router';
+import paymentRouter from './app/module/payment/payment.router';
 
-// parsers
+const app: Application = express();
+
+// List of allowed origins
+const allowedOrigins = ['https://spinzo.vercel.app', 'http://localhost:5173'];
+
+// Configure CORS with dynamic origin handling
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+  }),
+);
+
+// Parsers
 app.use(express.json());
-app.use(cors());
 
+// Routes
+app.use('/api/auth', AuthRouter);
+app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
+app.use('/api/payment', paymentRouter);
 
+// Test Route
 app.get('/', (req: Request, res: Response) => {
   res.send({
     status: true,

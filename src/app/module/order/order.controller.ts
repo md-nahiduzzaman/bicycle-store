@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { orderService } from './order.service';
 
-//  create order controller
+// Create order controller
 const createOrder = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
@@ -23,7 +23,7 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
-// calculate total revenue controller
+// Calculate total revenue controller
 const getRevenue = async (req: Request, res: Response) => {
   try {
     const result = await orderService.calculateRevenue();
@@ -49,3 +49,4 @@ export const orderController = {
   createOrder,
   getRevenue,
 };
+

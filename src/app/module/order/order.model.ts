@@ -13,20 +13,24 @@ const orderSchema = new Schema<IOrder>(
         message: '{VALUE} is not a valid email',
       },
     },
-    product: {
-      type: Schema.Types.ObjectId,
-      ref: 'Product',
-      required: true,
-    },
-    quantity: {
-      type: Number,
-      required: true,
-      min: [0, 'Quantity can not be negative'],
-    },
+    cartItems: [
+      {
+        product: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product',
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          min: [0, 'Quantity cannot be negative'],
+        },
+      },
+    ],
     totalPrice: {
       type: Number,
       required: true,
-      min: [0, 'Total price can not be negative'],
+      min: [0, 'Total price cannot be negative'],
     },
   },
   {
@@ -35,5 +39,5 @@ const orderSchema = new Schema<IOrder>(
   },
 );
 
-const Order = model('Order', orderSchema);
+const Order = model<IOrder>('Order', orderSchema);
 export default Order;

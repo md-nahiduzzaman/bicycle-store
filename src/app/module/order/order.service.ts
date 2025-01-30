@@ -1,28 +1,51 @@
 import Product from '../product/product.model';
 import { IOrder } from './order.interface';
 import Order from './order.model';
+import mongoose from 'mongoose';
 
-// place order service
 const placeOrder = async (orderData: IOrder) => {
-  const { product, quantity } = orderData;
+  const { email, cartItems, totalPrice } = orderData;
 
-  const foundProduct = await Product.findById(product);
-  if (!foundProduct) {
-    throw new Error('Product not found');
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    for (const cartItem of cartItems) {
+      const { product, quantity } = cartItem;
+
+      const foundProduct = await Product.findById(product).session(session);
+      if (!foundProduct) {
+        throw new Error(`Product with ID ${product} not found`);
+      }
+
+      if (foundProduct.quantity < quantity) {
+        throw new Error(`Insufficient stock for product: ${foundProduct.name}`);
+      }
+
+      foundProduct.quantity -= quantity;
+      foundProduct.inStock = foundProduct.quantity > 0;
+      await foundProduct.save({ session });
+    }
+
+    const order = new Order({
+      email,
+      cartItems,
+      totalPrice,
+    });
+
+    const savedOrder = await order.save({ session });
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return savedOrder;
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    throw error;
   }
-  if (foundProduct.quantity < quantity) {
-    throw new Error('Insufficient quantity');
-  }
-
-  foundProduct.quantity = foundProduct.quantity - quantity;
-  foundProduct.inStock = foundProduct.quantity > 0;
-  await foundProduct.save();
-
-  const order = new Order(orderData);
-  return await order.save();
 };
 
-// calculate revenue service
 const calculateRevenue = async () => {
   const revenue = await Order.aggregate([
     {
