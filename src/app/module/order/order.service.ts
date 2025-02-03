@@ -4,7 +4,7 @@ import Order from './order.model';
 import mongoose from 'mongoose';
 
 const placeOrder = async (orderData: IOrder) => {
-  const { email, cartItems, totalPrice } = orderData;
+  const { email, cartItems, totalPrice, paymentData } = orderData;
 
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -27,13 +27,14 @@ const placeOrder = async (orderData: IOrder) => {
       await foundProduct.save({ session });
     }
 
-    const order = new Order({
+    const newOrder = new Order({
       email,
       cartItems,
       totalPrice,
+      paymentData,
     });
 
-    const savedOrder = await order.save({ session });
+    const savedOrder = await newOrder.save({ session });
 
     await session.commitTransaction();
     session.endSession();

@@ -24,17 +24,4 @@ export const createPaymentIntent = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ error: (error as Error).message });
   }
-
-  // try {
-  //   const { amount }: { amount: number } = req.body;
-
-  //   const paymentIntent = await stripe.paymentIntents.create({
-  //     amount,
-  //     currency: 'usd',
-  //   });
-
-  //   res.status(200).json({ clientSecret: paymentIntent.client_secret });
-  // } catch (error) {
-  //   res.status(500).json({ error: (error as Error).message });
-  // }
 };

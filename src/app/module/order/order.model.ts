@@ -23,14 +23,24 @@ const orderSchema = new Schema<IOrder>(
         quantity: {
           type: Number,
           required: true,
-          min: [0, 'Quantity cannot be negative'],
+          min: [1, 'Quantity must be at least 1'],
         },
       },
     ],
     totalPrice: {
       type: Number,
       required: true,
-      min: [0, 'Total price cannot be negative'],
+      min: [1, 'Total price must be at least 1'],
+    },
+    paymentData: {
+      paymentIntentId: {
+        type: String,
+        required: true,
+      },
+      paymentAmount: {
+        type: Number,
+        required: true,
+      },
     },
   },
   {
