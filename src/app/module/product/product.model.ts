@@ -36,6 +36,11 @@ const productSchema = new Schema<IProduct>(
       required: true,
       min: [0, '{VALUE} is not valid, quantity can not be less than zero'],
     },
+    img: {
+      type: String,
+      required: true,
+    },
+
     inStock: {
       type: Boolean,
       default: true,

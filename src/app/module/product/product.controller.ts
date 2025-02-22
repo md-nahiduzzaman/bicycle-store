@@ -72,6 +72,29 @@ const getProductById = async (req: Request, res: Response) => {
   }
 };
 
+//get specific product controller for update
+const getUpdateProductId = async (req: Request, res: Response) => {
+  try {
+    const productId = req.params.productId;
+    const result = await productService.getUpdateProductId(productId);
+
+    res.json({
+      status: true,
+      message: 'Bicycles retrieved successfully',
+      data: result,
+    });
+  } catch (error) {
+    const err = error as Error;
+
+    res.json({
+      success: false,
+      message: 'Product not found',
+      error: err.message,
+      stack: err.stack,
+    });
+  }
+};
+
 //update specific product controller
 const updateProduct = async (req: Request, res: Response) => {
   try {
@@ -123,6 +146,7 @@ export const productController = {
   createProduct,
   getProduct,
   getProductById,
+  getUpdateProductId,
   updateProduct,
   deleteProduct,
 };
