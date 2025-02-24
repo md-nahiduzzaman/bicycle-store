@@ -38,7 +38,6 @@ const productSchema = new Schema<IProduct>(
     },
     img: {
       type: String,
-      required: true,
     },
 
     inStock: {

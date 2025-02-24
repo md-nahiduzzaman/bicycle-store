@@ -41,8 +41,22 @@ const getSingleUser = catchAsync(async (req, res) => {
   });
 });
 
+// block user
+const blockUser = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await userService.blockUser(id);
+
+  sendResponse(res, {
+    success: true,
+    message: `Operation successfully`,
+    statusCode: StatusCodes.OK,
+    data: result,
+  });
+});
+
 export const userController = {
   createUser,
   getUser,
   getSingleUser,
+  blockUser,
 };

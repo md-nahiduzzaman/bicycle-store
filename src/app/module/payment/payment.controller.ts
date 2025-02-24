@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import Stripe from 'stripe';
 import config from '../../config';
 
-// const stripe = new Stripe('your-stripe-secret-key', {
+// const stripe = new Stripe(config.stripe_secret_key as string, {
 //   apiVersion: '2020-08-27',
 // });
 

@@ -5,12 +5,18 @@ import bcrypt from 'bcrypt';
 import { createToken } from './auth.utils';
 
 const register = async (payload: IUser) => {
-  const result = await User.create(payload);
+  const userPayload = {
+    ...payload,
+    role: payload.role || 'customer',
+  };
+
+  const result = await User.create(userPayload);
 
   return {
     _id: result._id,
     name: result.name,
     email: result.email,
+    role: result.role,
   };
 };
 
@@ -41,6 +47,7 @@ const login = async (payload: { email: string; password: string }) => {
 
   const jwtPayload = {
     email: user?.email,
+    name: user?.name,
     role: user?.role,
   };
 

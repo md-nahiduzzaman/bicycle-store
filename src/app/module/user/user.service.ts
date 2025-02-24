@@ -20,8 +20,20 @@ const getSingleUser = async (id: string) => {
   return result;
 };
 
+// block user
+const blockUser = async (id: string) => {
+  const user = await User.findByIdAndUpdate(
+    id,
+    { $set: { isBlocked: true } },
+    { new: true, runValidators: true },
+  );
+  if (!user) throw new Error('User not found');
+  return user;
+};
+
 export const userService = {
   createUser,
   getUser,
   getSingleUser,
+  blockUser,
 };

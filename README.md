@@ -14,7 +14,7 @@
 
 - Place orders for bicycles.
 - Automatically updates inventory after an order is placed.
-- Validates stock availability before processing an order.
+- Validates stock inStock before processing an order.
 
 ### Revenue Calculation
 

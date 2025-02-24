@@ -26,28 +26,28 @@ const createProduct = async (req: Request, res: Response) => {
 };
 
 //get product controller
-const getProduct = async (req: Request, res: Response) => {
-  try {
-    const { searchTerm } = req.query;
+// const getProduct = async (req: Request, res: Response) => {
+//   try {
+//     const { searchTerm } = req.query;
 
-    const result = await productService.getProduct(searchTerm as string);
+//     const result = await productService.getProduct(searchTerm as string);
 
-    res.json({
-      status: true,
-      message: 'Bicycles retrieved successfully',
-      data: result,
-    });
-  } catch (error) {
-    const err = error as Error;
+//     res.json({
+//       status: true,
+//       message: 'Bicycles retrieved successfully',
+//       data: result,
+//     });
+//   } catch (error) {
+//     const err = error as Error;
 
-    res.json({
-      success: false,
-      message: 'Something went wrong',
-      error: err.message,
-      stack: err.stack,
-    });
-  }
-};
+//     res.json({
+//       success: false,
+//       message: 'Something went wrong',
+//       error: err.message,
+//       stack: err.stack,
+//     });
+//   }
+// };
 
 //get specific product controller
 const getProductById = async (req: Request, res: Response) => {
@@ -137,6 +137,39 @@ const deleteProduct = async (req: Request, res: Response) => {
       success: false,
       message: 'Something went wrong',
       error: err,
+      stack: err.stack,
+    });
+  }
+};
+
+// Get products with search & filters
+const getProduct = async (req: Request, res: Response) => {
+  try {
+    const { searchTerm, brand, category, inStock, priceRange, model } =
+      req.query;
+
+    const filters = {
+      searchTerm: searchTerm as string | undefined,
+      brand: brand as string | undefined,
+      category: category as string | undefined,
+      inStock: inStock as string | undefined,
+      priceRange: priceRange as string | undefined,
+      model: model as string | undefined,
+    };
+
+    const result = await productService.getProduct(filters);
+
+    res.json({
+      success: true,
+      message: 'Bicycles retrieved successfully',
+      data: result,
+    });
+  } catch (error) {
+    const err = error as Error;
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      error: err.message,
       stack: err.stack,
     });
   }

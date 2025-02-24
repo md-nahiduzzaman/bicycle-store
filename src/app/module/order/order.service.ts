@@ -47,6 +47,12 @@ const placeOrder = async (orderData: IOrder) => {
   }
 };
 
+// get user service
+const getOrder = async () => {
+  const result = await Order.find();
+  return result;
+};
+
 const calculateRevenue = async () => {
   const revenue = await Order.aggregate([
     {
@@ -62,4 +68,5 @@ const calculateRevenue = async () => {
 export const orderService = {
   placeOrder,
   calculateRevenue,
+  getOrder,
 };
