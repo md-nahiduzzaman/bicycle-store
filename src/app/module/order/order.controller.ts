@@ -6,37 +6,9 @@ import sendResponse from '../../utils/sendResponse';
 import catchAsync from '../../utils/catchAsync';
 
 // Create order controller
-// const createOrder = catchAsync(
-//   async (req: Request, res: Response): Promise<void> => {
-//     const { email, cartItems, totalPrice, paymentData } = req.body;
-
-//     if (!email || !cartItems || !totalPrice || !paymentData) {
-//       res.status(400).json({
-//         success: false,
-//         message: 'Invalid order data',
-//       });
-//       return;
-//     }
-
-//     const orderData = { email, cartItems, totalPrice, paymentData };
-//     const result = await orderService.placeOrder(orderData);
-
-//     res.status(201).json({
-//       success: true,
-//       message: 'Order created successfully',
-//       data: result,
-//     });
-//   },
-// );
 
 const createOrder = catchAsync(async (req, res) => {
   const { email, cartItems, totalPrice, paymentData } = req.body;
-
-  // if (!email || !cartItems || !totalPrice || !paymentData) {
-  //   return res
-  //     .status(400)
-  //     .json({ success: false, message: 'Invalid order data' });
-  // }
 
   const orderData = { email, cartItems, totalPrice, paymentData };
   const result = await orderService.placeOrder(orderData);
@@ -48,35 +20,6 @@ const createOrder = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
-// Create order controller
-// const createOrder = async (req: Request, res: Response) => {
-//   try {
-//     const { email, cartItems, totalPrice, paymentData } = req.body;
-
-//     if (!email || !cartItems || !totalPrice || !paymentData) {
-//       return res
-//         .status(400)
-//         .json({ success: false, message: 'Invalid order data' });
-//     }
-
-//     const orderData = { email, cartItems, totalPrice, paymentData };
-//     const result = await orderService.placeOrder(orderData);
-
-//     res.status(201).json({
-//       success: true,
-//       message: 'Order created successfully',
-//       data: result,
-//     });
-//   } catch (error) {
-//     const err = error as Error;
-//     res.status(500).json({
-//       success: false,
-//       message: `Server Error - ${err.message}`,
-//       stack: err.stack,
-//     });
-//   }
-// };
 
 // get all orders
 const getOrder = catchAsync(async (req, res) => {
