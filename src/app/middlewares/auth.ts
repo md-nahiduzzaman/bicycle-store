@@ -8,7 +8,7 @@ import { TUserRole } from '../module/user/user.interface';
 const auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // check auth header
-    const authHeader = req.headers.authorization;
+    const authHeader = req.headers?.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       throw new Error('Invalid token format or missing token');

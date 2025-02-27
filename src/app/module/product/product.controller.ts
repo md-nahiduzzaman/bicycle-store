@@ -143,34 +143,53 @@ const deleteProduct = async (req: Request, res: Response) => {
 };
 
 // Get products with search & filters
+// const getProduct = async (req: Request, res: Response) => {
+//   try {
+//     const { searchTerm, brand, category, inStock, priceRange, model } =
+//       req.query;
+
+//     const filters = {
+//       searchTerm: searchTerm as string | undefined,
+//       brand: brand as string | undefined,
+//       category: category as string | undefined,
+//       inStock: inStock as string | undefined,
+//       priceRange: priceRange as string | undefined,
+//       model: model as string | undefined,
+//     };
+
+//     const result = await productService.getProduct(filters);
+
+//     res.json({
+//       success: true,
+//       message: 'Bicycles retrieved successfully',
+//       data: result,
+//     });
+//   } catch (error) {
+//     const err = error as Error;
+//     res.status(500).json({
+//       success: false,
+//       message: 'Something went wrong',
+//       error: err.message,
+//       stack: err.stack,
+//     });
+//   }
+// };
+
+// Get all products with filters
 const getProduct = async (req: Request, res: Response) => {
   try {
-    const { searchTerm, brand, category, inStock, priceRange, model } =
-      req.query;
-
-    const filters = {
-      searchTerm: searchTerm as string | undefined,
-      brand: brand as string | undefined,
-      category: category as string | undefined,
-      inStock: inStock as string | undefined,
-      priceRange: priceRange as string | undefined,
-      model: model as string | undefined,
-    };
-
+    const filters = req.query;
     const result = await productService.getProduct(filters);
-
     res.json({
       success: true,
       message: 'Bicycles retrieved successfully',
       data: result,
     });
   } catch (error) {
-    const err = error as Error;
     res.status(500).json({
       success: false,
       message: 'Something went wrong',
-      error: err.message,
-      stack: err.stack,
+      error: (error as Error).message,
     });
   }
 };

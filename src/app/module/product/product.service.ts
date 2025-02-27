@@ -50,27 +50,58 @@ const deleteProduct = async (id: string) => {
 
 // Get products with search & filters
 
-const getProduct = async (filters: any) => {
-  let query: any = {};
+// const getProduct = async (filters: any) => {
+//   let query: any = {};
 
-  // Search term filter
+//   // Search term filter
+//   if (filters.searchTerm) {
+//     const regex = new RegExp(filters.searchTerm, 'i');
+//     query.$or = [{ name: regex }, { brand: regex }, { category: regex }];
+//   }
+
+//   // Handle the inStock filter
+//   if (filters.inStock !== undefined && filters.inStock !== 'all') {
+//     // Check if inStock is true or false and filter accordingly
+//     query.inStock =
+//       filters.inStock === 'true'
+//         ? true
+//         : filters.inStock === 'false'
+//           ? false
+//           : undefined;
+//   }
+
+//   // Handle other filters
+//   if (filters.brand && filters.brand !== 'all') {
+//     query.brand = filters.brand;
+//   }
+
+//   if (filters.category && filters.category !== 'all') {
+//     query.category = filters.category;
+//   }
+
+//   // Handle price range filter
+//   if (filters.priceRange) {
+//     const [minPrice, maxPrice] = filters.priceRange.split('-').map(Number);
+//     query.price = { $gte: minPrice, $lte: maxPrice };
+//   }
+
+//   // Handle model filter
+//   if (filters.model && filters.model !== 'all') {
+//     query.model = filters.model;
+//   }
+
+//   // Fetch the products based on the constructed query
+//   const result = await Product.find(query);
+//   return result;
+// };
+
+const getProduct = async (filters: any): Promise<IProduct[]> => {
+  const query: any = {};
+
   if (filters.searchTerm) {
-    const regex = new RegExp(filters.searchTerm, 'i');
-    query.$or = [{ name: regex }, { brand: regex }, { category: regex }];
+    query.name = { $regex: filters.searchTerm, $options: 'i' };
   }
 
-  // Handle the inStock filter
-  if (filters.inStock !== undefined && filters.inStock !== 'all') {
-    // Check if inStock is true or false and filter accordingly
-    query.inStock =
-      filters.inStock === 'true'
-        ? true
-        : filters.inStock === 'false'
-          ? false
-          : undefined;
-  }
-
-  // Handle other filters
   if (filters.brand && filters.brand !== 'all') {
     query.brand = filters.brand;
   }
@@ -79,20 +110,11 @@ const getProduct = async (filters: any) => {
     query.category = filters.category;
   }
 
-  // Handle price range filter
-  if (filters.priceRange) {
-    const [minPrice, maxPrice] = filters.priceRange.split('-').map(Number);
-    query.price = { $gte: minPrice, $lte: maxPrice };
+  if (filters.inStock && filters.inStock !== 'all') {
+    query.inStock = filters.inStock === 'true';
   }
 
-  // Handle model filter
-  if (filters.model && filters.model !== 'all') {
-    query.model = filters.model;
-  }
-
-  // Fetch the products based on the constructed query
-  const result = await Product.find(query);
-  return result;
+  return await Product.find(query);
 };
 
 export const productService = {
