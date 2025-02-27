@@ -65,8 +65,15 @@ const calculateRevenue = async () => {
   return revenue.length > 0 ? revenue[0].totalRevenue : 0;
 };
 
+const deleteOrder = async (id: string) => {
+  const orderId = new mongoose.Types.ObjectId(id); // Convert to ObjectId
+  const result = await Order.findByIdAndDelete(orderId);
+  return result;
+};
+
 export const orderService = {
   placeOrder,
   calculateRevenue,
   getOrder,
+  deleteOrder,
 };

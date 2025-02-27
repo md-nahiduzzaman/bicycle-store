@@ -55,8 +55,32 @@ const getRevenue = async (req: Request, res: Response) => {
   }
 };
 
+const deleteOrder = async (req: Request, res: Response) => {
+  try {
+    const orderId = req.params.orderId;
+
+    await orderService.deleteOrder(orderId);
+
+    res.json({
+      status: true,
+      message: 'Order deleted successfully',
+      result: {},
+    });
+  } catch (error) {
+    const err = error as Error;
+
+    res.json({
+      success: false,
+      message: 'Something went wrong',
+      error: err,
+      stack: err.stack,
+    });
+  }
+};
+
 export const orderController = {
   createOrder,
   getRevenue,
   getOrder,
+  deleteOrder,
 };
